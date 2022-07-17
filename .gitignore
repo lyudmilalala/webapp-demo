@@ -1,0 +1,9 @@
+installed.txt
+
+.vscode/
+.DS_Store
+build/
+dist/
+target/
+*.pyc
+**/__pycache__
