@@ -1,3 +1,7 @@
 class BaseConfig(object):
     HOST = '0.0.0.0'
+    PORT = 5002
     POST_PER_PAGE = 20
+    SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    # SQLALCHEMY_ECHO = True
