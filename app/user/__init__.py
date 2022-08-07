@@ -1,2 +1,3 @@
-from .controller.consumer_controller import consumer
-from .controller.seller_controller import seller
+from .controller import *
+from .model import *  # only entity be detected can be auto created by sqlachemy
+from .service import *

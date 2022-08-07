@@ -23,7 +23,8 @@ CONFIG_MAPPER = {
 
 BLUE_PRINT_MAPPER = [
     'app.user:consumer',
-    'app.user:seller',
+    'app.user:store',
+    'app.order:product',
 ]
 
 basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))

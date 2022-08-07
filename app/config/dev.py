@@ -6,5 +6,3 @@ class DevConfig(BaseConfig):
     USER_NAME = 'dev'
 
 
-
-

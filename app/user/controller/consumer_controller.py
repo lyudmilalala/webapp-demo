@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask import request
-from app.user.service.consumer_service_impl import *
+from app.user.service import *
 import json
 consumer = Blueprint('consumer', __name__, url_prefix='/consumer')
 
