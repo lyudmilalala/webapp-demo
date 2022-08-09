@@ -9,8 +9,7 @@ from app.config.prod import ProdConfig
 
 from app.cross_cutting.exceptions.handler import register_errors
 
-import logging
-from logging.handlers import TimedRotatingFileHandler
+from logging.config import dictConfig
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -38,36 +37,16 @@ def register_blueprint(app):
         app.register_blueprint(bp)
 
 def register_logging(app):
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
-    order_logger = logging.getLogger('order_log')
-    order_handler = TimedRotatingFileHandler('/Users/lyudmila/Desktop/projects/python_practice/logs/order/order.log', when='M', backupCount=3)
-    order_handler.setFormatter(formatter)
-    order_handler.setLevel(logging.INFO)
-    order_console_handler = logging.StreamHandler()
-    order_console_handler.setLevel(logging.INFO)
-    order_console_handler.setFormatter(formatter)
-    order_logger.addHandler(order_handler)
-    order_logger.addHandler(order_console_handler)
-    
-    user_logger = logging.getLogger('user_log')
-    user_handler = TimedRotatingFileHandler('/Users/lyudmila/Desktop/projects/python_practice/logs/user/user.log', when='M', backupCount=3)
-    user_handler.setFormatter(formatter)
-    user_handler.setLevel(logging.INFO)
-    user_console_handler = logging.StreamHandler()
-    user_console_handler.setLevel(logging.INFO)
-    user_console_handler.setFormatter(formatter)
-    user_logger.addHandler(user_handler)
-    user_logger.addHandler(user_console_handler)
+    dictConfig(app.config['LOGGER_CONFIG'])
 
 def create_app(config_name=None):
     app = Flask(__name__)
     if config_name is None:
         config_name = 'dev'
     app.config.from_object(CONFIG_MAPPER[config_name])
-    print('app config = ', app.config['USER_NAME'])
-    register_blueprint(app)
+    # print('app config = ', app.config['USER_NAME'])
     register_logging(app)
+    register_blueprint(app)
     register_errors(app)
     db.init_app(app)
     with app.app_context():
