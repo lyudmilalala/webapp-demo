@@ -1,0 +1,54 @@
+#开发环境配置
+
+server:
+  # 服务IP
+  address: 0.0.0.0
+  # 服务端口
+  port: 5500
+  http-port: 5510
+  domain: edu.spinq.cn
+  ssl:
+    key-store: file:/home/spinq/helpers/cert/12251087_edu.spinq.cn/12251087_edu.spinq.cn.jks
+    key-store-password: 1t2lsddr
+    keyStoreType: JKS
+
+aes:
+  key: ENC(k9GSqRgd8ojdvMJEDgYFAmZuN3mD+QeConjcAuYC3R8=)
+  salt: ENC(hWXKwMptSNJUKBAOGCNJ1/4oB32EQ7xWx8qsBKrfDjzTS5jBbsgCK+gxK2tx+J6zqyi57E8tXmLKthvE4g+4x29w/zuugeZlsTqln+L4e/U=)
+
+spring:
+  datasource:
+    username: ENC(7IZbfpTjpNBivw4edMZQig==)
+#    username: root
+    password: ENC(/DiTnzsV4+zdUII4GYbcvf8u0yqDOQw1)
+#    password: 1AmP@ssw0rd
+    url: jdbc:mysql://rm-wz943g9k9ick3w476.mysql.rds.aliyuncs.com:3306/gemini_server_prod?useSSL=false&serverTimezone=Asia/Shanghai&autoReconnect=true&characterEncoding=utf8&allowMultiQueries=true
+    hikari:
+      connection-timeout: 60000
+      maximum-pool-size: 20
+
+logging:
+  config: log4j2-prod.xml
+
+dbversion: 1
+
+jwt:
+  period: 1296000
+
+grpc:
+  client:
+    tarus-server:
+      address: static://cloud.spinq.cn:6065
+#      negotiation-type: plaintext
+      security:
+        authorityOverride: cloud.spinq.cn
+
+file-upload:
+  qiniu:
+    domain: "http://appsrc-cdn.edu.spinq.cn/"
+    bucket: cdn-spinq-app-src
+    app-code-release-prefix: pi-prod/appCode
+    auth-barcode-release-prefix: pi-prod/authBarCode
+
+admin:
+  token: ENC(mbl5ctfzN24Df4IueLJrwBLk3wnNApS6)

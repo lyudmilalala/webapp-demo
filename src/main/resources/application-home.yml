@@ -1,0 +1,58 @@
+#开发环境配置
+
+server:
+  # 服务IP
+  address: 0.0.0.0
+  # 服务端口
+  port: 5500
+  http-port: 5510
+  ssl:
+    key-store: classpath:11299147_uat-cloud.spinq.cn.jks
+    key-store-password: 65sb7059
+    keyStoreType: JKS
+
+jasypt:
+  encryptor:
+    password: my_application_encryption_salt
+
+aes:
+  key: abababababababab
+  salt: my_aaplication_salt
+
+spring:
+  datasource:
+    username: root
+#    username: root
+    password: 1996S05y22u!
+#    password: 1AmP@ssw0rd
+    url: jdbc:mysql://127.0.0.1:3306/gemini_server_dev?useSSL=false&serverTimezone=Asia/Shanghai&autoReconnect=true&characterEncoding=utf8&allowMultiQueries=true
+    hikari:
+      connection-timeout: 60000
+      maximum-pool-size: 20
+
+logging:
+  config: classpath:log4j2/log4j2-home.xml
+
+dbversion: 1
+
+jwt:
+  period: 1296000
+
+grpc:
+  client:
+    tarus-server:
+      #      address: static://0.0.0.0:6565
+      address: static://uat-cloud.spinq.cn:6055
+#      negotiation-type: plaintext
+      security:
+        authorityOverride: uat-cloud.spinq.cn
+
+file-upload:
+  qiniu:
+    domain: "http://appsrc-cdn-dev.edu.spinq.cn/"
+    bucket: cdn-spinq-app-src-dev
+    app-code-release-prefix: pi-home/appCode
+    auth-barcode-release-prefix: pi-home/authBarCode
+
+admin:
+  token: abababa

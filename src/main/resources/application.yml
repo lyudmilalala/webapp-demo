@@ -1,0 +1,26 @@
+spring:
+  # 激活环境配置
+  profiles:
+    active: @activatedProperties@
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database: MYSQL
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        show_sql: false
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  mvc:
+    async:
+      request-timeout: 300000
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1024MB
+      max-request-size: 3000MB
+
