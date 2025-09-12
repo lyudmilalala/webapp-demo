@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: webapp-demo
+server:
+  port: 8080
+
+storage:
+  local:
+    root: D:/project/webapp-demo/channel-storage/tmp
+  seaweedfs:
+    domain: http://192.168.1.100:7333
+  aliyun:
+    access-key-id: ababa
+    access-key-secret: ababa
+    region: cn-shenzhen
+    bucket: spinq-cloud-dev
