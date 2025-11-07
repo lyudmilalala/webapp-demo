@@ -18,8 +18,7 @@ public class CommonListResponse<T> extends CommonResponse {
         this.items = items;
     }
 
-    public CommonListResponse(int status, String msg, List<T> items) {
+    public CommonListResponse(int status, String msg) {
         super(status, msg);
-        this.items = items;
     }
 }

@@ -1,5 +1,6 @@
 package com.jerry.userapp;
 
+import com.jerry.commonutils.CommonEntityResponse;
 import com.jerry.commonutils.CommonListResponse;
 import com.jerry.commonutils.CommonResponse;
 import org.springframework.boot.SpringApplication;
@@ -36,5 +37,15 @@ public class UserAppApplication {
 	@RequestMapping(value="/getUserList", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<CommonListResponse<UserDTO>> getUserList() {
 		return new ResponseEntity<>(new CommonListResponse<>(userDTOList), HttpStatus.OK);
+	}
+
+	@RequestMapping(value="/findById", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<CommonEntityResponse<UserDTO>> findById(int id) {
+		for (UserDTO userDTO : userDTOList) {
+			if (userDTO.getId() == id) {
+				return new ResponseEntity<>(new CommonEntityResponse<>(userDTO), HttpStatus.OK);
+			}
+		}
+		return new ResponseEntity<>(new CommonEntityResponse<>(1000, "No user with id = " + id), HttpStatus.NOT_FOUND);
 	}
 }
