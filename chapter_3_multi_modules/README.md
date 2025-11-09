@@ -50,8 +50,11 @@ When `mvn clean package` the parent module, it will not pack its dependent submo
 </plugin>
 ```
 
-Q: What is difference between running `mvn clean install` in the root directory and running `mvn clean install` in the `app` directory?
-A: When running `mvn clean install` based on the `pom.xml` in the root directory, maven will compile all the submodules, and add the latest version of all submodules to the local maven repo. When running `mvn clean install` based on the `app/pom.xml`, maven will only compile the `app` module. If the package of any of its dependent module is already existed in the local repo, it will use that existing package instead of the latest source code.
+**Question**
+What is difference between running `mvn clean install` in the root directory and running `mvn clean install` in the `app` directory?
+**Answer**
+When running `mvn clean package` based on the `pom.xml` in the root directory, maven will compile all the submodules, and generate the `jar` with the latest versions of all submodules under the `target` directory in the root directory. When running `mvn clean package` based on the `app/pom.xml` in the `app` directory, maven will only compile the `app` module. Maven will try to find its dependent modules in the local repo, if any of the submodules is not existed. The compilation will fail.
+Similarly, when running `mvn clean install` based on the `pom.xml` in the root directory, maven will compile all the submodules, and add the latest versions of all submodules to the local maven repo. When running `mvn clean install` based on the `app/pom.xml` in the `app` directory, maven will only compile the `app` module. If the package of any of its dependent module is already existed in the local repo, it will use that existing package instead of the latest source code.
 
 If you do not want to compile some completely relevant submodules in your development environment, you can 
 1. Prepare a local parent `pom.xml` without the dependencies of those submodules, and use it to compile the project in your development environment.
