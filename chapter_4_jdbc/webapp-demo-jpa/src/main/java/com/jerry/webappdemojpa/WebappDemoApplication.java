@@ -1,8 +1,13 @@
 package com.jerry.webappdemojpa;
 
+import com.jerry.webappdemojpa.paydevDB.CouponEntity;
+import com.jerry.webappdemojpa.paydevDB.CouponRepository;
+import com.jerry.webappdemojpa.qcloudDB.UserEntity;
+import com.jerry.webappdemojpa.qcloudDB.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @RestController
 public class WebappDemoApplication {
 

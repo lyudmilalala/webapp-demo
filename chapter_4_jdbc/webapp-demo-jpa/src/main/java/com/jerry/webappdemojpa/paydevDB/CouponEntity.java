@@ -1,4 +1,4 @@
-package com.jerry.webappdemojpa;
+package com.jerry.webappdemojpa.paydevDB;
 
 import lombok.Data;
 

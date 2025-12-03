@@ -1,4 +1,4 @@
-package com.jerry.webappdemojpa;
+package com.jerry.webappdemojpa.qcloudDB;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -1,5 +1,6 @@
 package com.jerry.webappdemojpa.config;
 
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -11,16 +12,29 @@ import javax.sql.DataSource;
 @Configuration
 public class DataSourceConfig {
 
-    @Bean
+
+
+//    @ConfigurationProperties("spring.datasource.qcloud")
     @Primary
-    @ConfigurationProperties("spring.datasource.qcloud")
+    @Bean
     public DataSource qcloudDataSource() {
-        return DataSourceBuilder.create().build();
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/qcloud?characterEncoding=utf-8&serverTimezone=Asia/Shanghai&autoReconnect=true&failOverReadOnly=false");
+        dataSource.setUsername("root");
+        dataSource.setPassword("1996S05y22u!");
+        return dataSource;
     }
 
+
+//    @ConfigurationProperties("spring.datasource.paydev")
     @Bean
-    @ConfigurationProperties("spring.datasource.paydev")
     public DataSource payDevDataSource() {
-        return DataSourceBuilder.create().build();
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/pay_dev?characterEncoding=utf-8&serverTimezone=Asia/Shanghai&autoReconnect=true&failOverReadOnly=false");
+        dataSource.setUsername("root");
+        dataSource.setPassword("1996S05y22u!");
+        return dataSource;
     }
 }

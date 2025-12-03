@@ -1,4 +1,4 @@
-package com.jerry.webappdemojpa;
+package com.jerry.webappdemojpa.paydevDB;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

@@ -1,5 +1,6 @@
 package com.jerry.webappdemojpa.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
@@ -14,20 +15,24 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackageClasses = CouponRepository.class,
+        basePackages = "com.jerry.webappdemojpa.paydevDB",
         entityManagerFactoryRef = "payDevEntityManagerFactory",
         transactionManagerRef = "payDevTransactionManager"
 )
 public class PayDevJpaConfig {
 
+    @Autowired
+    @Qualifier("payDevDataSource")
+    private DataSource dataSource;
+
     @Bean(name = "payDevEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean payDevEntityManagerFactory(
-            EntityManagerFactoryBuilder builder,
-            @Qualifier("payDevDataSource") DataSource dataSource) {
+            EntityManagerFactoryBuilder builder) {
         
         Map<String, Object> properties = new HashMap<>();
         properties.put("hibernate.hbm2ddl.auto", "update");
@@ -35,15 +40,18 @@ public class PayDevJpaConfig {
         
         return builder
                 .dataSource(dataSource)
-                .packages("com.jerry.webappdemojpa")
+                .packages("com.jerry.webappdemojpa.paydevDB")
                 .persistenceUnit("payDev")
                 .properties(properties)
                 .build();
     }
 
     @Bean(name = "payDevTransactionManager")
-    public PlatformTransactionManager payDevTransactionManager(
-            @Qualifier("payDevEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
-        return new JpaTransactionManager(entityManagerFactory);
+    PlatformTransactionManager payDevTransactionManager(EntityManagerFactoryBuilder builder) {
+        return new JpaTransactionManager(Objects.requireNonNull(payDevEntityManagerFactory(builder).getObject()));
     }
+//    public PlatformTransactionManager payDevTransactionManager(
+//            @Qualifier("payDevEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
+//        return new JpaTransactionManager(entityManagerFactory);
+//    }
 }
