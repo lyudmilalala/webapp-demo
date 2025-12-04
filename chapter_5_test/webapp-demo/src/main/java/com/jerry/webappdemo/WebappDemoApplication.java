@@ -1,6 +1,6 @@
 package com.jerry.webappdemo;
 
-import com.jerry.webappdemo.response.CommonResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
@@ -21,6 +21,14 @@ public class WebappDemoApplication {
 	public ResponseEntity<CommonResponse> healthz() {
 		CommonResponse response = new CommonResponse();
 		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	@Autowired
+	HttpbinService httpbinService;
+
+	@RequestMapping(value="/thirdparty/get", method = RequestMethod.GET)
+	public ResponseEntity<CommonEntityResponse<?>> thirdpartyGet() {
+		return new ResponseEntity<>(httpbinService.simpleGet(), HttpStatus.OK);
 	}
 
 }

@@ -1,5 +1,8 @@
-package com.jerry.webappdemo;
+package com.jerry.webappdemo.response;
 
+import lombok.Data;
+
+@Data
 public class CommonResponse {
     private int status;
     private String msg;
