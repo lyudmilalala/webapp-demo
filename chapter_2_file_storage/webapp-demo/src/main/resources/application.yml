@@ -6,11 +6,17 @@ server:
 
 storage:
   local:
-    root: D:/project/webapp-demo/channel-storage/tmp
+    root:
+    # root: D:/project/webapp-demo/channel-storage/tmp
   seaweedfs:
-    domain: http://192.168.1.100:7333
+    domain:
+    # domain: http://192.168.1.100:7333
   aliyun:
-    access-key-id: ababa
-    access-key-secret: ababa
-    region: cn-shenzhen
-    bucket: spinq-cloud-dev
+    access-key-id:
+    access-key-secret:
+    region:
+    bucket:
+    # access-key-id: ababa
+    # access-key-secret: ababa
+    # region: cn-shenzhen
+    # bucket: spinq-cloud-dev

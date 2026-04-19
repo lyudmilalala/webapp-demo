@@ -10,27 +10,31 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Map;
 
 @Slf4j
-@Service
 public class SeaweedFSService implements StoregeService {
-    private static String FILER_SERVER;
-    @Value("${storage.seaweedfs.domain}")
-    public void setFilerServer(String root_dir) {
-        FILER_SERVER = root_dir;
+    private final String filerServer;
+
+    public SeaweedFSService(String filerServer) {
+        this.filerServer = filerServer;
+    }
+
+    private String buildFileUrl(String prefix, String filename) {
+        String base = filerServer;
+        if (base.endsWith("/")) {
+            base = base.substring(0, base.length() - 1);
+        }
+        return base + "/" + prefix + "/" + filename;
     }
 
     @Override
     public void save(String prefix, String filename, byte[] content) {
             // 模拟mockRes(bitNum)逻辑，将content转换为需要存储的数据结构
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-                String fileUrl = "http://" + FILER_SERVER + "/" + prefix + "/" + filename;
+                String fileUrl = buildFileUrl(prefix, filename);
                 log.info("fileUrl = {}", fileUrl);
 
                 HttpPost post = new HttpPost(fileUrl);
@@ -53,7 +57,7 @@ public class SeaweedFSService implements StoregeService {
     @Override
     public byte[] load(String prefix, String filename) {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-            String fileUrl = "http://" + FILER_SERVER + "/" + prefix + "/" + filename;
+            String fileUrl = buildFileUrl(prefix, filename);
             log.info("fileUrl = {}", fileUrl);
             HttpGet get = new HttpGet(fileUrl);
             try (CloseableHttpResponse response = httpClient.execute(get)) {

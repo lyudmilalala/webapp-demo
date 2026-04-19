@@ -1,7 +1,6 @@
 package com.jerry.webappdemo;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -13,10 +12,10 @@ import java.nio.channels.FileChannel;
 @Slf4j
 public class LocalFileService implements StoregeService {
 
-    private static String ROOT_DIR;
-    @Value("${storage.local.root}")
-    public void setRootDir(String root_dir) {
-        ROOT_DIR = root_dir;
+    private final String rootDir;
+
+    public LocalFileService(String rootDir) {
+        this.rootDir = rootDir;
     }
 
 
@@ -24,9 +23,13 @@ public class LocalFileService implements StoregeService {
     public void save(String prefix, String filename, byte[] content) {
         BufferedOutputStream outputStream = null;
         try {
-            String filepath = ROOT_DIR + "/" + prefix + "/" + filename;
+            String filepath = rootDir + "/" + prefix + "/" + filename;
             log.info("filePath = {}", filepath);
             File file = new File(filepath);
+            File parent = file.getParentFile();
+            if (parent != null && !parent.exists()) {
+                parent.mkdirs();
+            }
             if (!file.exists()) {
                 log.info("File " + filepath + " does not exist");
             } else {
@@ -51,7 +54,7 @@ public class LocalFileService implements StoregeService {
     @Override
     public byte[] load(String prefix, String filename) {
         try {
-            String filepath = ROOT_DIR + "/" + prefix + "/" + filename;
+            String filepath = rootDir + "/" + prefix + "/" + filename;
             log.info("filePath = {}", filepath);
             File f = new File(filepath);
             if (!f.exists()) {
@@ -62,7 +65,6 @@ public class LocalFileService implements StoregeService {
                 ByteBuffer byteBuffer = ByteBuffer.allocate((int) channel.size());
                 while ((channel.read(byteBuffer)) > 0) {
                     // do nothing
-                    // System.out.println("reading");
                 }
                 return byteBuffer.array();
             }
