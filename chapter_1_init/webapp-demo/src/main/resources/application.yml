@@ -1,5 +1,5 @@
 spring:
   application:
     name: webapp-demo
-server:
-  port: 8080
+  profiles:
+    active: @profiles.active@

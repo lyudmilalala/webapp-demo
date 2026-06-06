@@ -1,7 +1,6 @@
 package com.jerry.webappdemojpa.user;
 
 import com.jerry.webappdemojpa.CommonEntityResponse;
-import com.jerry.webappdemojpa.CommonResponse;
 import com.jerry.webappdemojpa.user.dto.LoginRequest;
 import com.jerry.webappdemojpa.user.dto.LoginResponse;
 import com.jerry.webappdemojpa.user.dto.UserInfoDTO;

@@ -11,6 +11,18 @@ spring:
       connection-timeout: 60000
       max-lifetime: 600000
       maximum-pool-size: 20
+  redis:
+    host: 47.119.187.177
+    port: 6379
+    password: atpx4869
+    database: 0
+    timeout: 3000ms
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1ms
   jpa:
     database: mysql
     hibernate:

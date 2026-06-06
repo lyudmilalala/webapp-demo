@@ -1,0 +1,8 @@
+server:
+  port: 8080
+
+logging:
+  file:
+    name: ${WEB_APP_LOG_FILE:/home/spinq/data-pipeline/logs/server-prod.log}
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%t] %logger{36} - %msg%n"
